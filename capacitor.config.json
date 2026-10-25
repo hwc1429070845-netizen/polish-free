@@ -1,0 +1,11 @@
+{
+  "appId": "com.weichen.polishpractice",
+  "appName": "波兰语练习",
+  "webDir": "www",
+  "backgroundColor": "#f2f2f7",
+  "android": { "allowMixedContent": false },
+  "plugins": {
+    "CapacitorHttp": { "enabled": true },
+    "SystemBars": { "insetsHandling": "css" }
+  }
+}

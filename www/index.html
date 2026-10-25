@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#f2f2f7">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>波兰语练习</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23007aff'/%3E%3Cpath d='M32 15a14 14 0 0 0-14 14v6a14 14 0 0 0 14 14h2v9l10-9h4a14 14 0 0 0 14-14v-6A14 14 0 0 0 32 15z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+:root{
+ --bg:#f2f2f7;--card:#ffffff;--ink:#1c1c1e;--muted:#8e8e93;
+ --blue:#007aff;--green:#34c759;--red:#ff3b30;
+ --soft:#e9f1ff;--line:rgba(60,60,67,.14);
+ --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 18px rgba(0,0,0,.05);
+ color-scheme:light;
+ --sat:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px));
+ --sab:max(env(safe-area-inset-bottom,0px),var(--safe-area-inset-bottom,0px));
+}
+@media(prefers-color-scheme:dark){
+ :root{--bg:#000;--card:#1c1c1e;--ink:#f2f2f7;--muted:#98989f;--blue:#0a84ff;--green:#30d158;--soft:#102a43;--line:rgba(84,84,88,.55);--shadow:none}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html,body{width:100%;max-width:100%}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",system-ui,sans-serif;min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:clip}
+.app{max-width:640px;margin:0 auto;min-height:100dvh;background:var(--bg);position:relative}
+main{width:100%;padding:calc(var(--sat) + 12px) 12px calc(var(--sab) + 26px)}
+
+/* ===== 首页视图 ===== */
+.view{min-height:100dvh}
+.home{transition:transform .42s cubic-bezier(.32,.72,0,1),opacity .34s ease;will-change:transform,opacity}
+.home.dim{transform:translateX(-24%);opacity:.55;pointer-events:none}
+.lhead{margin-bottom:16px}
+.lhead h1{font-size:clamp(30px,7.5vw,34px);font-weight:700;letter-spacing:-.6px;line-height:1.12}
+.lhead .date{color:var(--muted);font-size:14px;margin-top:4px;font-weight:400}
+
+/* ===== 顶部三个统计入口 ===== */
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 10px}
+.chip{position:relative;border:0;background:var(--card);color:var(--ink);border-radius:18px;padding:13px 12px 11px;text-align:left;cursor:pointer;font:inherit;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:5px;min-width:0;transition:transform .15s ease}
+.chip:active{transform:scale(.97)}
+.chip small{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.3px}
+.chip strong{font-size:26px;font-weight:700;letter-spacing:-.6px;line-height:1}
+.chip .chev{position:absolute;right:9px;top:50%;transform:translateY(-50%);color:var(--muted);display:flex}
+.chip .chev svg{width:13px;height:13px}
+
+/* ===== 分段控件 ===== */
+.seg{display:flex;background:rgba(120,120,128,.14);border-radius:10px;padding:2px;margin-bottom:10px}
+.seg button{flex:1;min-width:0;border:0;background:none;color:var(--ink);padding:8px 6px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s,box-shadow .2s;font-family:inherit}
+.seg button.on{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.14)}
+
+/* ===== 句子卡片 ===== */
+.card{background:var(--card);border-radius:18px;padding:12px 14px 10px;margin-bottom:8px;box-shadow:var(--shadow)}
+.cardtop{display:flex;justify-content:space-between;align-items:center;min-height:22px;color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.5px;gap:8px}
+.cardtop .wcount{font-weight:500;letter-spacing:0;white-space:nowrap}
+.tip{margin:7px 0 2px;min-height:26px;display:flex;align-items:center;gap:8px;background:var(--soft);color:var(--blue);border-radius:10px;padding:5px 11px;font-size:14px;line-height:1.35}
+.tip b{font-weight:700}
+.tip.idle{display:none}
+.polish{font-size:21px;line-height:1.35;font-weight:600;letter-spacing:-.2px;margin:7px 0 5px;overflow-wrap:anywhere}
+.word{cursor:pointer;border-radius:6px;padding:0 1px;transition:background .15s}
+.word:hover{background:var(--soft)}
+.word.active{background:var(--soft);color:var(--blue)}
+.cn{color:var(--muted);font-size:14px;line-height:1.4;overflow-wrap:anywhere;min-height:20px}
+.cn .loading{color:var(--muted)}
+.actions{display:flex;gap:6px;margin-top:10px}
+.actions button{flex:1;min-width:0;border:0;border-radius:12px;padding:9px 4px;font-size:13px;font-weight:600;cursor:pointer;background:var(--soft);color:var(--blue);display:inline-flex;align-items:center;justify-content:center;gap:5px;transition:opacity .15s;font-family:inherit}
+.actions button:active{opacity:.75}
+.actions button svg{width:15px;height:15px;flex:none}
+.actions button.done{background:var(--green);color:#fff}
+.relearn{display:inline-flex;align-items:center;gap:4px;border:0;background:rgba(120,120,128,.14);color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer;transition:color .15s;font-family:inherit}
+.relearn svg{width:13px;height:13px}
+.relearn:hover{color:var(--blue)}
+
+/* ===== 任务条 ===== */
+.next{border:0;background:none;color:var(--blue);font-size:15px;font-weight:600;cursor:pointer;padding:8px 2px;display:inline-flex;align-items:center;gap:3px;font-family:inherit;white-space:nowrap}
+.next:disabled{color:var(--muted);opacity:.5;cursor:default}
+.task{background:var(--card);border-radius:18px;padding:12px 14px 8px;font-size:13px;color:var(--muted);box-shadow:var(--shadow)}
+.task .row{display:flex;justify-content:space-between;align-items:center;margin-top:7px}
+.prog{height:5px;background:var(--line);border-radius:5px;overflow:hidden;margin:2px 0 4px}
+.prog div{height:100%;background:var(--blue);width:0;transition:width .3s}
+.empty{background:var(--card);border-radius:20px;padding:30px 20px;text-align:center;color:var(--muted);font-size:14px;line-height:1.7;box-shadow:var(--shadow)}
+
+/* ===== 推入页（iOS 设置风格） ===== */
+.page{position:fixed;top:0;bottom:0;left:0;right:0;background:var(--bg);z-index:30;transform:translateX(100%);transition:transform .42s cubic-bezier(.32,.72,0,1);will-change:transform;overflow-y:auto;overscroll-behavior:contain}
+.page.open{transform:translateX(0)}
+.navbar{position:sticky;top:0;z-index:2;background:var(--bg);background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);border-bottom:.5px solid var(--line)}
+.nav-inner{max-width:640px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:44px;padding:calc(var(--sat) + 2px) 6px 0}
+.back{display:inline-flex;align-items:center;gap:2px;border:0;background:none;color:var(--blue);font-size:17px;padding:10px 12px 10px 4px;cursor:pointer;min-height:44px;justify-self:start;font-family:inherit}
+.back svg{width:12px;height:12px}
+.nav-title{font-size:17px;font-weight:600;text-align:center;grid-column:2;white-space:nowrap}
+.nav-side{grid-column:3}
+.page-body{max-width:640px;margin:0 auto;padding:4px 16px calc(var(--sab) + 30px)}
+.ghead{padding:20px 14px 6px;font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--muted)}
+.gwrap{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.gcell{position:relative;display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;min-height:50px;min-width:0;transition:background .15s}
+.gcell:active{background:rgba(120,120,128,.08)}
+.gcell+.gcell::before{content:"";position:absolute;left:16px;right:0;top:0;height:.5px;background:var(--line)}
+.gcell b{font-size:16px;font-weight:600;display:block;line-height:1.3;overflow-wrap:anywhere}
+.gcell .wi{display:block;color:var(--blue);font-size:12.5px;min-height:16px;margin-bottom:3px;overflow-wrap:anywhere}
+.gcell small{color:var(--muted);font-size:12px;display:block;margin-bottom:2px}
+.gcell .big{font-size:26px;font-weight:700;letter-spacing:-.5px;line-height:1.1;display:block}
+.gcell .right{margin-left:auto;color:var(--muted);display:flex;align-items:center;gap:6px;flex:none;font-size:13px}
+.gcell .right svg{width:15px;height:15px;color:var(--blue)}
+.gcell .sub{color:var(--muted);font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+.gcell .wc{min-width:0}
+
+/* ===== Toast ===== */
+.toast{position:fixed;left:50%;bottom:calc(var(--sab) + 26px);transform:translateX(-50%) translateY(8px);background:rgba(30,30,34,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:500;z-index:60;opacity:0;pointer-events:none;transition:.28s;box-shadow:0 4px 18px rgba(0,0,0,.25);max-width:88vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+
+/* ===== Android 适配 ===== */
+html{overscroll-behavior:none;-webkit-text-size-adjust:100%}
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea{-webkit-user-select:text;user-select:text}
+button{-webkit-appearance:none;appearance:none}
+.iconbtn{border:0;background:var(--card);color:var(--blue);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow);flex:none}
+.iconbtn svg{width:20px;height:20px}
+.lhead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.chip.sub2 small{white-space:nowrap}
+.setrow{display:flex;align-items:center;gap:12px;padding:12px 16px;min-height:50px;position:relative}
+.setrow+.setrow::before{content:"";position:absolute;left:16px;right:0;top:0;height:.5px;background:var(--line)}
+.setrow .lbl{font-size:16px;font-weight:500;flex:1;min-width:0}
+.setrow .lbl small{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:2px}
+.segmini{display:flex;background:rgba(120,120,128,.14);border-radius:9px;padding:2px;flex:none}
+.segmini button{border:0;background:none;color:var(--ink);padding:6px 12px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.segmini button.on{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.btnrow{display:flex;gap:8px;padding:12px 16px;flex-wrap:wrap}
+.btn{flex:1;min-width:120px;border:0;border-radius:12px;padding:11px 8px;font-size:14px;font-weight:600;background:var(--soft);color:var(--blue);cursor:pointer;font-family:inherit}
+.btn.danger{background:rgba(255,59,48,.12);color:var(--red)}
+textarea.bk{width:calc(100% - 32px);margin:0 16px 12px;height:120px;border-radius:10px;border:.5px solid var(--line);background:var(--bg);color:var(--ink);padding:10px;font-size:12px;font-family:ui-monospace,monospace}
+.tip .mastered{margin-left:auto;border:0;background:var(--blue);color:#fff;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;flex:none}
+.tip .mastered.on{background:var(--green)}
+.badge{display:inline-block;font-size:11px;font-weight:700;color:var(--green);margin-left:6px}
+.filter{display:flex;gap:8px;margin:10px 0 0}
+
+@media(prefers-reduced-motion:reduce){.page,.home{transition:none}}
+</style>
+</head>
+<body>
+<div class="app">
+ <!-- ===== 首页 ===== -->
+ <div class="view home" id="viewHome">
+  <main>
+   <header class="lhead">
+    <div><h1>波兰语练习</h1><p class="date" id="todayLabel"></p></div>
+    <button class="iconbtn" id="gearBtn" aria-label="设置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+   </header>
+   <div class="chips">
+    <button class="chip" id="chipSent"><small>已学句子</small><strong id="sentCount">0</strong><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></button>
+    <button class="chip" id="chipWord"><small>收录单词</small><strong id="wordCount">0</strong><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></button>
+    <button class="chip" id="chipDay"><small>连续学习</small><strong id="streak">0</strong><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></button>
+   </div>
+   <div class="seg"><button id="todayBtn" class="on">今日学习</button><button id="reviewBtn">复习生词</button></div>
+   <div id="sentences"></div>
+   <section class="task">
+    <div id="taskText"></div>
+    <div class="prog"><div id="dayBar"></div></div>
+    <div class="row"><span id="percent">0 / 5000 词</span><button class="next" id="nextBtn" disabled>下一批<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
+    <div class="prog"><div id="bar"></div></div>
+    <div class="row"><button class="next" id="resetBtn" style="color:var(--muted);font-size:13px;padding:0">重新练习今天</button></div>
+   </section>
+  </main>
+ </div>
+ <!-- ===== 推入子页（iOS 设置风格） ===== -->
+ <div class="view page" id="viewPage" aria-hidden="true">
+  <nav class="navbar">
+   <div class="nav-inner">
+    <button class="back" id="backBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>返回</span></button>
+    <h2 class="nav-title" id="pageTitle"></h2>
+    <span class="nav-side"></span>
+   </div>
+  </nav>
+  <div class="page-body" id="pageBody"></div>
+ </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+const KEY="mojPolski_v1";
+const pad2=n=>String(n).padStart(2,"0");
+const fmt=d=>d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());
+const today=()=>fmt(new Date());
+const yesterday=()=>{const d=new Date();d.setDate(d.getDate()-1);return fmt(d);};
+let state;
+try{state=JSON.parse(localStorage.getItem(KEY))||{};}catch(e){state={};}
+function normalizeState(){
+ state.learned=(state.learned||[]).filter(x=>x&&typeof x==="object");
+ state.words||={};state.daily||={};state.completed||={};state.streak||=0;state.lastDay||="";state.settings||={};
+ Object.keys(state.daily).forEach(d=>{if(!Array.isArray(state.daily[d])||state.daily[d].some(x=>typeof x!=="object"))delete state.daily[d];});
+ if(![3,5,10].includes(state.settings.per))state.settings.per=3;
+}
+normalizeState();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}renderStats();}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=s=>s.toLocaleLowerCase("pl").replace(/^[\W_]+|[\W_]+$/gu,"");
+const wordsOf=s=>s.match(/[\p{L}\p{M}]+(?:['’-][\p{L}\p{M}]+)*/gu)||[];
+const per=()=>state.settings.per;
+const Cap=window.Capacitor,AppPlugin=(Cap&&Cap.isNativePlatform&&Cap.isNativePlatform()&&Cap.Plugins&&Cap.Plugins.App)||null;
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),2200);}
+
+/* ===== 网络接口 1：Tatoeba 随机波兰语句子（带中文翻译） ===== */
+async function fetchSentences(n){
+ const base="https://api.tatoeba.org/v1/sentences?lang=pol&trans:lang=cmn&word_count=3-12&sort=random&limit=30";
+ for(const url of [base+"&showtrans:lang=cmn",base+"&showtrans=all"]){
+  try{
+   const r=await fetch(url);if(!r.ok)continue;
+   const j=await r.json();const rows=j.data||j.results||[];
+   const seen=new Set(state.learned.map(x=>x.id)),out=[];
+   for(const x of rows){
+    const pl=x.text||x.sentence,id="t"+x.id;
+    if(!pl||seen.has(id))continue;
+    const zh=((Array.isArray(x.translations)?x.translations.flat(Infinity):[]).find(t=>t&&t.lang==="cmn"&&t.text)||{}).text;
+    if(!zh)continue;
+    out.push({id,pl,zh});seen.add(id);
+    if(out.length>=n)break;
+   }
+   if(out.length)return out;
+  }catch(e){}
+ }
+ return [];
+}
+/* ===== 网络接口 2：Google 翻译（查词） ===== */
+async function getTranslation(w){
+ try{
+  const r=await fetch("https://translate.googleapis.com/translate_a/single?client=gtx&sl=pl&tl=zh-CN&dt=t&q="+encodeURIComponent(w));
+  if(r.ok){const j=await r.json();return (j[0]||[]).map(x=>x[0]||"").join("");}
+ }catch(e){}
+ return "";
+}
+/* ===== 网络接口 3：Google 发音 ===== */
+let audio=null;
+const ttsURL=(t,c)=>"https://translate.google.com/translate_tts?ie=UTF-8&client="+c+"&tl=pl&total=1&idx=0&textlen="+t.length+(state.settings.slow?"&ttsspeed=0.3":"")+"&q="+encodeURIComponent(t);
+function tryAudio(url){
+ return new Promise((resolve,reject)=>{
+  const a=new Audio();a.referrerPolicy="no-referrer";
+  let done=false;const fail=()=>{if(!done){done=true;reject();}};
+  a.onerror=fail;setTimeout(fail,6000);
+  a.onplaying=()=>{if(!done){done=true;resolve(a);}};
+  a.src=url;a.play().catch(fail);
+ });
+}
+async function speak(text){
+ if(audio){audio.pause();audio=null;}
+ const t=text.slice(0,190);
+ for(const c of ["tw-ob","gtx"]){try{audio=await tryAudio(ttsURL(t,c));return;}catch(e){}}
+ toast("发音需要联网，请检查网络");
+}
+
+/* ===== 渲染 ===== */
+const IDLE="轻点句中任意单词，查看释义并听发音";
+const IC={
+ spk:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9.2v5.6h3.4L12 18.6V5.4L7.4 9.2H4z"/><path d="M15.6 8.4a5 5 0 0 1 0 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+ uturn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14h-3"/></svg>',
+ check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>'
+};
+function wordsHTML(pl){
+ return pl.split(/([\p{L}\p{M}]+(?:['’-][\p{L}\p{M}]+)*)/gu).map(t=>/^[\p{L}\p{M}]+/u.test(t)?'<span class="word" role="button" tabindex="0" data-word="'+esc(t)+'">'+esc(t)+'</span>':esc(t)).join("");
+}
+function bindWords(root){root.querySelectorAll("[data-word]").forEach(el=>{el.onclick=()=>translateWord(el.dataset.word,el);});}
+function sentenceCard(s,i,o){
+ const showRel=o.relearn&&(o.relearnAlways||state.completed[s.id]);
+ const right=showRel?'<button class="relearn" data-id="'+esc(s.id)+'">'+IC.uturn+'<span>加入未学会</span></button>':'<span class="wcount">'+wordsOf(s.pl).length+' 个词</span>';
+ const done=!!state.completed[s.id];
+ const act='<button class="speakS" data-say="'+esc(s.pl)+'">'+IC.spk+'<span>听整句</span></button>'+
+  (o.mark?'<button class="mark '+(done?"done":"")+'" data-id="'+esc(s.id)+'">'+(done?IC.check+'<span>已学会</span>':'<span>我学会了</span>')+'</button>':'');
+ return '<article class="card"><div class="cardtop"><span>SENTENCE '+pad2(i+1)+'</span>'+right+'</div><div class="tip idle">'+IDLE+'</div>'+
+  '<div class="polish" lang="pl">'+wordsHTML(s.pl)+'</div><div class="cn">'+esc(s.zh)+'</div><div class="actions">'+act+'</div></article>';
+}
+let current=[],view="today",loading=false;
+function reviewList(){
+ const unk=w=>{const x=state.words[norm(w)];return x&&!x.known;};
+ const pool=[...(state.daily[today()]||[]),...state.learned],seen=new Set();
+ return pool.filter(s=>!seen.has(s.id)&&seen.add(s.id)).map(s=>({s,n:wordsOf(s.pl).filter(unk).length})).filter(x=>x.n).sort((a,b)=>b.n-a.n).slice(0,per()).map(x=>x.s);
+}
+async function renderSentences(){
+ $("todayBtn").classList.toggle("on",view==="today");$("reviewBtn").classList.toggle("on",view==="review");
+ const box=$("sentences");
+ if(view==="review"){
+  current=reviewList();
+  if(!current.length){box.innerHTML='<div class="empty">暂时没有待复习的单词。<br>点击句子里的单词，它就会进入词汇记录。</div>';return renderTask();}
+ }else{
+  const d=today();
+  if(!(state.daily[d]&&state.daily[d].length)){
+   if(loading)return;loading=true;
+   box.innerHTML='<div class="empty">正在从网络获取句子…</div>';
+   const rows=await fetchSentences(per());loading=false;
+   if(!rows.length){box.innerHTML='<div class="empty">需要联网才能获取句子。<br>请检查网络后重试。<br><br><button class="btn" id="retry" style="max-width:160px">重试</button></div>';$("retry").onclick=renderSentences;current=[];return renderTask();}
+   state.daily[d]=rows;save();
+  }
+  current=state.daily[d];
+ }
+ box.innerHTML=current.map((s,i)=>sentenceCard(s,i,{relearn:true,mark:true})).join("");
+ bindWords(box);
+ box.querySelectorAll(".speakS").forEach(b=>b.onclick=()=>speak(b.dataset.say));
+ box.querySelectorAll(".relearn").forEach(b=>b.onclick=()=>relearn(b.dataset.id));
+ box.querySelectorAll(".mark").forEach(b=>b.onclick=()=>{
+  const id=b.dataset.id,s=current.find(x=>x.id===id);
+  state.completed[id]=!state.completed[id];
+  if(state.completed[id]){if(!state.learned.some(x=>x.id===id))state.learned.push(s);markStudyDay();}
+  else state.learned=state.learned.filter(x=>x.id!==id);
+  save();renderSentences();
+ });
+ renderTask();
+}
+function markStudyDay(){
+ if(state.lastDay===today())return;
+ state.streak=state.lastDay===yesterday()?state.streak+1:1;state.lastDay=today();
+}
+const curStreak=()=>(state.lastDay===today()||state.lastDay===yesterday())?state.streak:0;
+function renderTask(){
+ const done=current.filter(s=>state.completed[s.id]).length,tot=Math.max(current.length,1);
+ $("dayBar").style.width=(done/tot*100)+"%";
+ $("taskText").textContent=current.length&&done===current.length?"这一批完成了":"已完成 "+done+" / "+current.length+" 句 · 听一遍，跟读三遍，再脱离中文说出来";
+ $("nextBtn").disabled=!current.length||done<tot||view==="review";
+}
+function renderStats(){
+ const n=Object.keys(state.words).length;
+ $("sentCount").textContent=state.learned.length;
+ $("wordCount").textContent=n;
+ $("percent").textContent=Math.min(5000,n)+" / 5000 词";
+ $("bar").style.width=Math.min(100,n/50)+"%";
+ $("streak").textContent=curStreak();
+}
+function relearn(id){
+ const d=today(),s=state.learned.find(x=>x.id===id)||current.find(x=>x.id===id);
+ delete state.completed[id];
+ state.learned=state.learned.filter(x=>x.id!==id);
+ state.daily[d]||=[];
+ if(s&&!state.daily[d].some(x=>x.id===id))state.daily[d].unshift(s);
+ save();toast("已移出已学句子，加入今日复习");
+ if(curPage)renderPageBody(curPage);else{view="today";renderSentences();}
+}
+/* ===== 子页：已学句子 / 单词 / 连续学习 / 设置 ===== */
+let curPage="",wordFilter="all";
+const pageTitleOf=t=>({sent:"已学句子",word:"收录单词",set:"设置",day:"连续学习"})[t];
+function renderPageBody(type){
+ let html="";
+ if(type==="sent"){
+  html=state.learned.length?state.learned.map((s,i)=>sentenceCard(s,i,{relearn:true,relearnAlways:true})).join(""):'<div class="empty">还没有已学句子。<br>在首页点“我学会了”即可加入。</div>';
+ }else if(type==="word"){
+  const all=Object.entries(state.words).map(([k,w])=>({k,...w}));
+  const ws=all.filter(w=>wordFilter==="all"||(wordFilter==="known"?w.known:!w.known)).sort((a,b)=>a.original.localeCompare(b.original,"pl"));
+  const f=(k,t)=>'<button data-f="'+k+'" class="'+(wordFilter===k?"on":"")+'">'+t+'</button>';
+  html='<div class="ghead">收录 '+all.length+' · 已掌握 '+all.filter(w=>w.known).length+'</div><div class="seg" style="margin:0 0 10px">'+f("all","全部")+f("new","生词")+f("known","已掌握")+'</div><div class="gwrap">'+
+   (ws.length?ws.map(w=>'<div class="gcell" role="button" data-w="'+esc(w.original)+'"><div class="wc"><span class="wi">'+esc(w.zh)+'</span><b lang="pl">'+esc(w.original)+'</b></div><span class="right"><button class="relearn mk" data-k="'+esc(w.k)+'" style="'+(w.known?"background:var(--green);color:#fff":"")+'">'+IC.check+'<span>'+(w.known?"已掌握":"掌握")+'</span></button>'+IC.spk+'</span></div>').join(""):'<div class="gcell" style="cursor:default"><div class="sub">这里还没有单词。<br>点击句子中的单词，就会记录在这里。</div></div>')+'</div>';
+ }else if(type==="set"){
+  const st=state.settings,sg=(a,v,t)=>'<button data-'+a+'="'+v+'" class="'+((a==="per"?st.per===v:!!st.slow===!!v)?"on":"")+'">'+t+'</button>';
+  html='<div class="ghead">学习</div><div class="gwrap">'+
+   '<div class="setrow"><div class="lbl">每批句子数<small>下一批生效</small></div><div class="segmini">'+sg("per",3,3)+sg("per",5,5)+sg("per",10,10)+'</div></div>'+
+   '<div class="setrow"><div class="lbl">发音速度</div><div class="segmini">'+sg("slow",0,"正常")+sg("slow",1,"慢速")+'</div></div></div>'+
+   '<div class="ghead">备份与恢复</div><div class="gwrap"><div class="btnrow"><button class="btn" id="bkCopy">复制备份</button><button class="btn" id="bkShare">分享备份</button></div>'+
+   '<textarea class="bk" id="bkText" placeholder="把备份文本粘贴到这里，再点“导入”"></textarea><div class="btnrow" style="padding-top:0"><button class="btn" id="bkImport">导入备份</button></div></div>'+
+   '<div class="ghead">数据</div><div class="gwrap"><div class="btnrow"><button class="btn danger" id="resetAll">清空全部学习数据</button></div></div>';
+ }else{
+  const days=Object.keys(state.daily).sort().reverse();
+  html='<div class="ghead">连续学习</div><div class="gwrap"><div class="gcell" style="cursor:default"><div><small>当前连续天数</small><b class="big">'+curStreak()+' 天</b></div><span class="right" style="font-weight:600">'+(state.lastDay===today()?"今天已打卡":"今天还没学")+'</span></div></div>'+
+   '<div class="ghead">学习记录</div><div class="gwrap">'+(days.length?days.map(d=>'<div class="gcell" style="cursor:default"><b style="font-size:15px">'+esc(d)+'</b><span class="right">'+state.daily[d].filter(s=>state.completed[s.id]).length+' / '+state.daily[d].length+' 句</span></div>').join(""):'<div class="gcell" style="cursor:default"><div class="sub">还没有学习记录。</div></div>')+'</div>';
+ }
+ $("pageTitle").textContent=pageTitleOf(type);
+ const B=$("pageBody");B.innerHTML=html;
+ bindWords(B);
+ B.querySelectorAll(".speakS").forEach(b=>b.onclick=()=>speak(b.dataset.say));
+ B.querySelectorAll(".relearn[data-id]").forEach(b=>b.onclick=()=>relearn(b.dataset.id));
+ B.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{wordFilter=b.dataset.f;renderPageBody("word");});
+ B.querySelectorAll(".mk").forEach(b=>b.onclick=e=>{e.stopPropagation();const w=state.words[b.dataset.k];if(w){w.known=!w.known;save();renderPageBody("word");}});
+ B.querySelectorAll("[data-w]").forEach(el=>el.onclick=()=>speak(el.dataset.w));
+ if(type==="set")bindSettings(B);
+}
+function bindSettings(B){
+ B.querySelectorAll("[data-per]").forEach(b=>b.onclick=()=>{state.settings.per=+b.dataset.per;save();renderPageBody("set");});
+ B.querySelectorAll("[data-slow]").forEach(b=>b.onclick=()=>{state.settings.slow=b.dataset.slow==="1";save();renderPageBody("set");speak("Dzień dobry! Jak się masz?");});
+ const text=()=>JSON.stringify(state);
+ $("bkCopy").onclick=async()=>{try{await navigator.clipboard.writeText(text());toast("备份已复制到剪贴板");}catch(e){$("bkText").value=text();toast("已填入文本框，请长按复制");}};
+ $("bkShare").onclick=async()=>{try{await navigator.share({title:"波兰语练习备份",text:text()});}catch(e){$("bkText").value=text();toast("已填入文本框，请长按复制");}};
+ $("bkImport").onclick=()=>{
+  try{
+   const j=JSON.parse($("bkText").value.trim());
+   if(!j||!Array.isArray(j.learned)||typeof j.words!=="object")throw 0;
+   if(!confirm("导入会覆盖当前的全部学习数据，继续吗？"))return;
+   state=j;normalizeState();save();toast("导入成功");renderPageBody("set");
+  }catch(e){toast("备份格式不正确");}
+ };
+ $("resetAll").onclick=()=>{
+  if(confirm("清空全部学习数据？此操作无法撤销，建议先复制备份。")){state={};normalizeState();save();view="today";popPage();toast("已清空");}
+ };
+}
+function pushPage(type){
+ if(curPage===type)return;
+ curPage=type;renderPageBody(type);
+ const p=$("viewPage");p.setAttribute("aria-hidden","false");p.scrollTop=0;
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{p.classList.add("open");$("viewHome").classList.add("dim");}));
+ try{history.pushState({page:type},"","#s/"+type);}catch(e){}
+}
+function popPage(){
+ if(!curPage)return;
+ curPage="";
+ $("viewPage").classList.remove("open");$("viewHome").classList.remove("dim");
+ renderStats();renderSentences();
+ setTimeout(()=>$("viewPage").setAttribute("aria-hidden","true"),440);
+ try{if(history.state&&history.state.page)history.back();}catch(e){}
+}
+window.addEventListener("popstate",()=>{if(curPage&&!(history.state&&history.state.page))popPage();});
+async function translateWord(word,el){
+ speak(word);
+ document.querySelectorAll(".tip").forEach(t=>{t.className="tip idle";t.textContent=IDLE;});
+ document.querySelectorAll(".word.active").forEach(x=>x.classList.remove("active"));
+ el.classList.add("active");
+ const tip=el.closest(".card").querySelector(".tip"),k=norm(word);
+ tip.className="tip";tip.innerHTML="<b>"+esc(word)+"</b><span>查询中…</span>";
+ const zh=(state.words[k]&&state.words[k].zh)||await getTranslation(word);
+ if(!el.classList.contains("active"))return;
+ if(!zh){tip.innerHTML="<b>"+esc(word)+"</b><span>查询失败，需要联网</span>";return;}
+ state.words[k]||={known:false,original:word,zh};state.words[k].zh=zh;save();
+ const kn=state.words[k].known;
+ tip.innerHTML="<b>"+esc(word)+"</b><span>"+esc(zh)+'</span><button class="mastered'+(kn?" on":"")+'">'+(kn?"已掌握":"掌握")+"</button>";
+ const mb=tip.querySelector(".mastered");
+ mb.onclick=()=>{const w=state.words[k];w.known=!w.known;save();mb.classList.toggle("on",w.known);mb.textContent=w.known?"已掌握":"掌握";};
+}
+/* ===== 交互 ===== */
+$("chipSent").onclick=()=>pushPage("sent");
+$("chipWord").onclick=()=>pushPage("word");
+$("chipDay").onclick=()=>pushPage("day");
+$("gearBtn").onclick=()=>pushPage("set");
+$("backBtn").onclick=popPage;
+$("todayBtn").onclick=()=>{view="today";renderSentences();};
+$("reviewBtn").onclick=()=>{view="review";renderSentences();};
+$("resetBtn").onclick=()=>{
+ if(confirm("重新练习今天？保留已有学习记录。")){
+  (state.daily[today()]||[]).forEach(s=>{delete state.completed[s.id];state.learned=state.learned.filter(x=>x.id!==s.id);});
+  save();view="today";renderSentences();
+ }
+};
+$("nextBtn").onclick=()=>{
+ if(current.some(s=>!state.completed[s.id]))return;
+ delete state.daily[today()];save();view="today";renderSentences();window.scrollTo({top:0,behavior:"smooth"});
+};
+if(AppPlugin)AppPlugin.addListener("backButton",()=>{
+ if(curPage)popPage();else if(view!=="today"){view="today";renderSentences();}else AppPlugin.exitApp();
+});
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&audio)audio.pause();});
+$("todayLabel").textContent=new Date().toLocaleDateString("zh-CN",{weekday:"long",month:"long",day:"numeric"});
+renderStats();renderSentences();
+
+</script>
+</body>
+</html>
