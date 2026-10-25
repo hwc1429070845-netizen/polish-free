@@ -25,7 +25,6 @@ html,body{width:100%;max-width:100%}
 body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",system-ui,sans-serif;min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:clip}
 .app{max-width:640px;margin:0 auto;min-height:100dvh;background:var(--bg);position:relative}
 main{width:100%;padding:calc(var(--sat) + 12px) 12px calc(var(--sab) + 26px)}
-
 /* ===== 首页视图 ===== */
 .view{min-height:100dvh}
 .home{transition:transform .42s cubic-bezier(.32,.72,0,1),opacity .34s ease;will-change:transform,opacity}
@@ -33,7 +32,6 @@ main{width:100%;padding:calc(var(--sat) + 12px) 12px calc(var(--sab) + 26px)}
 .lhead{margin-bottom:16px}
 .lhead h1{font-size:clamp(30px,7.5vw,34px);font-weight:700;letter-spacing:-.6px;line-height:1.12}
 .lhead .date{color:var(--muted);font-size:14px;margin-top:4px;font-weight:400}
-
 /* ===== 顶部三个统计入口 ===== */
 .chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 10px}
 .chip{position:relative;border:0;background:var(--card);color:var(--ink);border-radius:18px;padding:13px 12px 11px;text-align:left;cursor:pointer;font:inherit;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:5px;min-width:0;transition:transform .15s ease}
@@ -42,12 +40,10 @@ main{width:100%;padding:calc(var(--sat) + 12px) 12px calc(var(--sab) + 26px)}
 .chip strong{font-size:26px;font-weight:700;letter-spacing:-.6px;line-height:1}
 .chip .chev{position:absolute;right:9px;top:50%;transform:translateY(-50%);color:var(--muted);display:flex}
 .chip .chev svg{width:13px;height:13px}
-
 /* ===== 分段控件 ===== */
 .seg{display:flex;background:rgba(120,120,128,.14);border-radius:10px;padding:2px;margin-bottom:10px}
 .seg button{flex:1;min-width:0;border:0;background:none;color:var(--ink);padding:8px 6px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s,box-shadow .2s;font-family:inherit}
 .seg button.on{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.14)}
-
 /* ===== 句子卡片 ===== */
 .card{background:var(--card);border-radius:18px;padding:12px 14px 10px;margin-bottom:8px;box-shadow:var(--shadow)}
 .cardtop{display:flex;justify-content:space-between;align-items:center;min-height:22px;color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.5px;gap:8px}
@@ -69,7 +65,6 @@ main{width:100%;padding:calc(var(--sat) + 12px) 12px calc(var(--sab) + 26px)}
 .relearn{display:inline-flex;align-items:center;gap:4px;border:0;background:rgba(120,120,128,.14);color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer;transition:color .15s;font-family:inherit}
 .relearn svg{width:13px;height:13px}
 .relearn:hover{color:var(--blue)}
-
 /* ===== 任务条 ===== */
 .next{border:0;background:none;color:var(--blue);font-size:15px;font-weight:600;cursor:pointer;padding:8px 2px;display:inline-flex;align-items:center;gap:3px;font-family:inherit;white-space:nowrap}
 .next:disabled{color:var(--muted);opacity:.5;cursor:default}
@@ -78,7 +73,6 @@ main{width:100%;padding:calc(var(--sat) + 12px) 12px calc(var(--sab) + 26px)}
 .prog{height:5px;background:var(--line);border-radius:5px;overflow:hidden;margin:2px 0 4px}
 .prog div{height:100%;background:var(--blue);width:0;transition:width .3s}
 .empty{background:var(--card);border-radius:20px;padding:30px 20px;text-align:center;color:var(--muted);font-size:14px;line-height:1.7;box-shadow:var(--shadow)}
-
 /* ===== 推入页（iOS 设置风格） ===== */
 .page{position:fixed;top:0;bottom:0;left:0;right:0;background:var(--bg);z-index:30;transform:translateX(100%);transition:transform .42s cubic-bezier(.32,.72,0,1);will-change:transform;overflow-y:auto;overscroll-behavior:contain}
 .page.open{transform:translateX(0)}
@@ -102,12 +96,9 @@ main{width:100%;padding:calc(var(--sat) + 12px) 12px calc(var(--sab) + 26px)}
 .gcell .right svg{width:15px;height:15px;color:var(--blue)}
 .gcell .sub{color:var(--muted);font-size:14px;line-height:1.5;overflow-wrap:anywhere}
 .gcell .wc{min-width:0}
-
 /* ===== Toast ===== */
 .toast{position:fixed;left:50%;bottom:calc(var(--sab) + 26px);transform:translateX(-50%) translateY(8px);background:rgba(30,30,34,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:500;z-index:60;opacity:0;pointer-events:none;transition:.28s;box-shadow:0 4px 18px rgba(0,0,0,.25);max-width:88vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-
 /* ===== Android 适配 ===== */
 html{overscroll-behavior:none;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
@@ -132,7 +123,6 @@ textarea.bk{width:calc(100% - 32px);margin:0 16px 12px;height:120px;border-radiu
 .tip .mastered.on{background:var(--green)}
 .badge{display:inline-block;font-size:11px;font-weight:700;color:var(--green);margin-left:6px}
 .filter{display:flex;gap:8px;margin:10px 0 0}
-
 @media(prefers-reduced-motion:reduce){.page,.home{transition:none}}
 </style>
 </head>
@@ -143,19 +133,19 @@ textarea.bk{width:calc(100% - 32px);margin:0 16px 12px;height:120px;border-radiu
   <main>
    <header class="lhead">
     <div><h1>波兰语练习</h1><p class="date" id="todayLabel"></p></div>
-    <button class="iconbtn" id="gearBtn" aria-label="设置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+    <button class="iconbtn" id="gearBtn" aria-label="设置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></svg></button>
    </header>
    <div class="chips">
-    <button class="chip" id="chipSent"><small>已学句子</small><strong id="sentCount">0</strong><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></button>
-    <button class="chip" id="chipWord"><small>收录单词</small><strong id="wordCount">0</strong><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></button>
-    <button class="chip" id="chipDay"><small>连续学习</small><strong id="streak">0</strong><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></button>
+    <button class="chip" id="chipSent"><small>已学句子</small><strong id="sentCount">0</strong><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg></span></button>
+    <button class="chip" id="chipWord"><small>收录单词</small><strong id="wordCount">0</strong><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg></span></button>
+    <button class="chip" id="chipDay"><small>连续学习</small><strong id="streak">0</strong><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg></span></button>
    </div>
    <div class="seg"><button id="todayBtn" class="on">今日学习</button><button id="reviewBtn">复习生词</button></div>
    <div id="sentences"></div>
    <section class="task">
     <div id="taskText"></div>
     <div class="prog"><div id="dayBar"></div></div>
-    <div class="row"><span id="percent">0 / 5000 词</span><button class="next" id="nextBtn" disabled>下一批<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
+    <div class="row"><span id="percent">0 / 5000 词</span><button class="next" id="nextBtn" disabled>下一批<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg></button></div>
     <div class="prog"><div id="bar"></div></div>
     <div class="row"><button class="next" id="resetBtn" style="color:var(--muted);font-size:13px;padding:0">重新练习今天</button></div>
    </section>
@@ -165,7 +155,7 @@ textarea.bk{width:calc(100% - 32px);margin:0 16px 12px;height:120px;border-radiu
  <div class="view page" id="viewPage" aria-hidden="true">
   <nav class="navbar">
    <div class="nav-inner">
-    <button class="back" id="backBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span>返回</span></button>
+    <button class="back" id="backBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg><span>返回</span></button>
     <h2 class="nav-title" id="pageTitle"></h2>
     <span class="nav-side"></span>
    </div>
@@ -175,6 +165,65 @@ textarea.bk{width:calc(100% - 32px);margin:0 16px 12px;height:120px;border-radiu
 </div>
 <div class="toast" id="toast"></div>
 <script>
+// ===================== 内置3000条波兰日常口语句子 =====================
+const builtInSentences = [
+{"id":"b0001","pl":"Dzień dobry!","zh":"你好！（白天用）"},
+{"id":"b0002","pl":"Cześć!","zh":"嗨！/你好！（熟人）"},
+{"id":"b0003","pl":"Hej!","zh":"嘿！"},
+{"id":"b0004","pl":"Dobry wieczór!","zh":"晚上好！"},
+{"id":"b0005","pl":"Dobranoc!","zh":"晚安！"},
+{"id":"b0006","pl":"Jak się masz?","zh":"你过得怎么样？（非正式）"},
+{"id":"b0007","pl":"Jak się pan ma?","zh":"您好吗？（对男士正式）"},
+{"id":"b0008","pl":"Jak się pani ma?","zh":"您好吗？（对女士正式）"},
+{"id":"b0009","pl":"Dobrze, dziękuję. A ty?","zh":"挺好，谢谢。你呢？"},
+{"id":"b0010","pl":"W porządku.","zh":"还行。"},
+{"id":"b0011","pl":"Nieźle.","zh":"还不错。"},
+{"id":"b0012","pl":"Świetnie!","zh":"太棒了！"},
+{"id":"b0013","pl":"Słabo.","zh":"不太好。"},
+{"id":"b0014","pl":"Jak leci?","zh":"咋样？（非常口语）"},
+{"id":"b0015","pl":"Spoko.","zh":"没事儿/挺好（年轻人口语）"},
+{"id":"b0016","pl":"Dziękuję bardzo!","zh":"非常感谢！"},
+{"id":"b0017","pl":"Dzięki!","zh":"谢谢！（非正式）"},
+{"id":"b0018","pl":"Nie ma za co.","zh":"不客气。"},
+{"id":"b0019","pl":"Proszę.","zh":"请/给您/不客气（多用途）"},
+{"id":"b0020","pl":"Przepraszam.","zh":"对不起/打扰一下"},
+{"id":"b0021","pl":"Wybacz mi.","zh":"原谅我。"},
+{"id":"b0022","pl":"Nic się nie stało.","zh":"没事儿，没关系。"},
+{"id":"b0023","pl":"Do widzenia!","zh":"再见（正式）"},
+{"id":"b0024","pl":"Pa!","zh":"拜拜（非正式）"},
+{"id":"b0025","pl":"Na razie!","zh":"回头见！"},
+{"id":"b0026","pl":"Do zobaczenia jutro!","zh":"明天见！"},
+{"id":"b0027","pl":"Miło cię poznać.","zh":"很高兴认识你（非正式）"},
+{"id":"b0028","pl":"Miło pana poznać.","zh":"很高兴认识您（男士正式）"},
+{"id":"b0029","pl":"Miło pani poznać.","zh":"很高兴认识您（女士正式）"},
+{"id":"b0030","pl":"Nazywam się Li.","zh":"我姓李。"},
+{"id":"b0031","pl":"Jak masz na imię?","zh":"你叫什么名字？"},
+{"id":"b0032","pl":"Jak się pan nazywa?","zh":"您怎么称呼？"},
+{"id":"b0033","pl":"Skąd jesteś?","zh":"你来自哪里？"},
+{"id":"b0034","pl":"Jestem z Chin.","zh":"我来自中国。"},
+{"id":"b0035","pl":"Mieszkam w Polsce.","zh":"我住在波兰。"},
+{"id":"b0036","pl":"Od jak dawna tu jesteś?","zh":"你来这里多久了？"},
+{"id":"b0037","pl":"Jestem tu od pół roku.","zh":"我来这里半年了。"},
+{"id":"b0038","pl":"Rozumiem trochę po polsku.","zh":"我听得懂一点波兰语。"},
+{"id":"b0039","pl":"Słabo mówię po polsku.","zh":"我波兰语说得不好。"},
+{"id":"b0040","pl":"Proszę mówić wolniej.","zh":"请说慢一点。"},
+{"id":"b0041","pl":"Powtórz proszę.","zh":"请重复一遍。"},
+{"id":"b0042","pl":"Co to znaczy?","zh":"这是什么意思？"},
+{"id":"b0043","pl":"Nie rozumiem.","zh":"我不明白。"},
+{"id":"b0044","pl":"Czy mówisz po angielsku?","zh":"你会说英语吗？"},
+{"id":"b0045","pl":"Czy pan mówi po angielsku?","zh":"您会说英语吗？"},
+{"id":"b0046","pl":"Proszę napisać to.","zh":"请把这个写下来。"},
+{"id":"b0047","pl":"Ile to kosztuje?","zh":"这个多少钱？"},
+{"id":"b0048","pl":"Za ile?","zh":"多少钱？（口语）"},
+{"id":"b0049","pl":"To jest drogie.","zh":"这个很贵。"},
+{"id":"b0050","pl":"To jest tanie.","zh":"这个很便宜。"}
+// ⚠️注意：这里我只粘贴前50句做示范。完整3000句太长，记事本放不下。
+// --------------------------
+// 【重要】我需要告诉你：3000句完整文本量非常巨大，直接粘贴在这里会超出对话上限。
+// 方案：我把全部3000句纯JSON句子数组单独输出给你，你复制，粘贴替换上面这一段 builtInSentences = [ ... ] 里面全部内容。
+// --------------------------
+];
+
 const $=id=>document.getElementById(id);
 const KEY="mojPolski_v1";
 const pad2=n=>String(n).padStart(2,"0");
@@ -198,27 +247,14 @@ const per=()=>state.settings.per;
 const Cap=window.Capacitor,AppPlugin=(Cap&&Cap.isNativePlatform&&Cap.isNativePlatform()&&Cap.Plugins&&Cap.Plugins.App)||null;
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),2200);}
 
-/* ===== 网络接口 1：Tatoeba 随机波兰语句子（带中文翻译） ===== */
+/* ===== 修改：现在使用本地内置句子，不再请求Tatoeba网络接口 ===== */
 async function fetchSentences(n){
- const base="https://api.tatoeba.org/v1/sentences?lang=pol&trans:lang=cmn&word_count=3-12&sort=random&limit=30";
- for(const url of [base+"&showtrans:lang=cmn",base+"&showtrans=all"]){
-  try{
-   const r=await fetch(url);if(!r.ok)continue;
-   const j=await r.json();const rows=j.data||j.results||[];
-   const seen=new Set(state.learned.map(x=>x.id)),out=[];
-   for(const x of rows){
-    const pl=x.text||x.sentence,id="t"+x.id;
-    if(!pl||seen.has(id))continue;
-    const zh=((Array.isArray(x.translations)?x.translations.flat(Infinity):[]).find(t=>t&&t.lang==="cmn"&&t.text)||{}).text;
-    if(!zh)continue;
-    out.push({id,pl,zh});seen.add(id);
-    if(out.length>=n)break;
-   }
-   if(out.length)return out;
-  }catch(e){}
- }
- return [];
+  // 从内置库，排除已经学过的id
+  const seen=new Set(state.learned.map(x=>x.id));
+  const pool=builtInSentences.filter(s=>!seen.has(s.id));
+  return pool.slice(0,n);
 }
+
 /* ===== 网络接口 2：Google 翻译（查词） ===== */
 async function getTranslation(w){
  try{
@@ -245,13 +281,12 @@ async function speak(text){
  for(const c of ["tw-ob","gtx"]){try{audio=await tryAudio(ttsURL(t,c));return;}catch(e){}}
  toast("发音需要联网，请检查网络");
 }
-
 /* ===== 渲染 ===== */
 const IDLE="轻点句中任意单词，查看释义并听发音";
 const IC={
- spk:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9.2v5.6h3.4L12 18.6V5.4L7.4 9.2H4z"/><path d="M15.6 8.4a5 5 0 0 1 0 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
- uturn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14h-3"/></svg>',
- check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>'
+ spk:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9.2v5.6h3.4L12 18.6V5.4L7.4 9.2H4z" /><path d="M15.6 8.4a5 5 0 0 1 0 7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>',
+ uturn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5" /><path d="M4 9h9a7 7 0 0 1 0 14h-3" /></svg>',
+ check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7" /></svg>'
 };
 function wordsHTML(pl){
  return pl.split(/([\p{L}\p{M}]+(?:['’-][\p{L}\p{M}]+)*)/gu).map(t=>/^[\p{L}\p{M}]+/u.test(t)?'<span class="word" role="button" tabindex="0" data-word="'+esc(t)+'">'+esc(t)+'</span>':esc(t)).join("");
@@ -282,9 +317,9 @@ async function renderSentences(){
   const d=today();
   if(!(state.daily[d]&&state.daily[d].length)){
    if(loading)return;loading=true;
-   box.innerHTML='<div class="empty">正在从网络获取句子…</div>';
+   box.innerHTML='<div class="empty">加载内置句子…</div>';
    const rows=await fetchSentences(per());loading=false;
-   if(!rows.length){box.innerHTML='<div class="empty">需要联网才能获取句子。<br>请检查网络后重试。<br><br><button class="btn" id="retry" style="max-width:160px">重试</button></div>';$("retry").onclick=renderSentences;current=[];return renderTask();}
+   if(!rows.length){box.innerHTML='<div class="empty">恭喜！全部内置句子已经学完！</div>';current=[];return renderTask();}
    state.daily[d]=rows;save();
   }
   current=state.daily[d];
@@ -440,7 +475,6 @@ if(AppPlugin)AppPlugin.addListener("backButton",()=>{
 document.addEventListener("visibilitychange",()=>{if(document.hidden&&audio)audio.pause();});
 $("todayLabel").textContent=new Date().toLocaleDateString("zh-CN",{weekday:"long",month:"long",day:"numeric"});
 renderStats();renderSentences();
-
 </script>
 </body>
 </html>
